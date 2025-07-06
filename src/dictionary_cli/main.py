@@ -1,7 +1,7 @@
 import click
 import requests
 
-API_KEY = 'your-api-key-here'  # Get this from Merriam-Webster
+API_KEY = '70ff34fa-8138-44a5-91b4-73446d6c35df'  # Get this from Merriam-Webster
 BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
 
 @click.command()

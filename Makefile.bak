@@ -1,6 +1,3 @@
-PYTHON := python3
-PIP := python3 -m pip
-
 .PHONY: all clean install test build lint format
 
 # Default target
@@ -8,10 +5,10 @@ all: clean lint test build
 
 # Install dependencies and the package in development mode
 install:
-	$(PIP) install --upgrade pip
-	$(PIP) install -r requirements.txt
-	$(PIP) install -e .
-	$(PIP) install pylint black pytest-cov
+	python -m pip install --upgrade pip
+	pip install -r requirements.txt
+	pip install -e .
+	pip install pylint black pytest-cov
 
 # Run linting
 lint:
@@ -28,7 +25,7 @@ test:
 
 # Build the package
 build: clean
-	$(PYTHON) setup.py sdist bdist_wheel
+	python setup.py sdist bdist_wheel
 
 # Clean build artifacts
 clean:
@@ -42,4 +39,4 @@ clean:
 
 # Install production dependencies only
 prod-install:
-	$(PIP) install --no-cache-dir .
+	pip install --no-cache-dir .

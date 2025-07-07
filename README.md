@@ -173,47 +173,5 @@ git push origin feature/new-feature
 \```
 5. Submit a pull request
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- [Merriam-Webster](https://www.merriam-webster.com/) for providing the dictionary API
-- Click library for CLI interface
-- Pytest for testing framework
-
-## Troubleshooting
-
-### Common Issues
-
-1. API Key Issues:
-   - Ensure you\'ve replaced the default API key
-   - Verify your API key is active
-
-2. Installation Issues:
-   - Make sure you\'re using Python 3.6+
-   - Try upgrading pip: \`pip install --upgrade pip\`
-
-3. Build Issues:
-   - Clear build artifacts: \`make clean\`
-   - Ensure all dependencies are installed: \`make install\`
-
-### Getting Help
-
-If you encounter any issues:
-1. Check the [Issues](https://github.com/Vedanshi-Arora/dictionary-cli/issues) page
-2. Create a new issue with:
-   - Description of the problem
-   - Steps to reproduce
-   - Expected vs actual behavior
-
-## Version History
-
-- 0.1.0
-  - Initial release
-  - Basic word lookup functionality
-  - Test suite implementation
-  - CI pipeline setup
 
 

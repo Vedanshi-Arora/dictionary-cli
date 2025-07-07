@@ -10,10 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4  # Updated to v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5  # Updated to v5
       with:
         python-version: '3.x'
 
@@ -29,10 +29,11 @@ jobs:
       run: make build
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4  # Updated to v4
       with:
         name: dictionary-cli-package
         path: dist/
+        retention-days: 5  # Optional: specify how long to keep the artifact
 
     - name: Check artifact
       run: |

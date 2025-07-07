@@ -9,7 +9,6 @@ A command-line interface tool that queries the Merriam-Webster dictionary API to
 - Look up word definitions from Merriam-Webster dictionary
 - Display phonetic pronunciations
 - Show multiple definitions when available
-- Suggest similar words when exact match isn\'t found
 
 ## Prerequisites
 

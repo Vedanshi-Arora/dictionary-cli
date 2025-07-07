@@ -15,8 +15,6 @@ setup(
         ],
     },
     python_requires='>=3.6',
-    author="Your Name",
-    author_email="your.email@example.com",
     description="A CLI tool for querying Merriam-Webster dictionary",
     long_description="A command-line interface tool to query the Merriam-Webster dictionary.",
     long_description_content_type="text/markdown",

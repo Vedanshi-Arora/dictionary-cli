@@ -7,7 +7,7 @@ on:
     branches: [ master, main ]
 
 jobs:
-  build:
+  pipeline:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -17,39 +17,47 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Debug Info
+    # 1. BUILD STEP
+    - name: Build Step - Install and Compile
       run: |
-        python --version
-        pip --version
-        pwd
-        ls -la
-
-    - name: Install dependencies
-      run: |
+        echo "=== Starting Build Phase ==="
         python -m pip install --upgrade pip
         python -m pip install wheel setuptools
         python -m pip install -r requirements.txt
         python -m pip install -e .
-      continue-on-error: false
+        echo "=== Build Phase Complete ==="
 
-    - name: List installed packages
-      run: pip list
-
-    - name: Run tests
+    # 2. TEST SUITE
+    - name: Test Step - Run Test Suite
       run: |
-        python -m pytest tests/ -v
-      continue-on-error: false
+        echo "=== Starting Test Phase ==="
+        python -m pytest tests/ -v --cov=src/dictionary_cli --cov-report=term-missing
+        echo "=== Test Phase Complete ==="
 
-    - name: Build package
+    # 3. ARTIFACT PRODUCTION
+    - name: Artifact Step - Create Distribution
       run: |
+        echo "=== Starting Artifact Creation Phase ==="
         python setup.py sdist bdist_wheel
+        echo "Created artifacts:"
         ls -l dist/
-      continue-on-error: false
+        echo "=== Artifact Creation Complete ==="
 
-    - name: Upload artifact
-      if: success()
+    - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: dictionary-cli-package
-        path: dist/
+        path: |
+          dist/*.whl
+          dist/*.tar.gz
         retention-days: 5
+
+    - name: Build Summary
+      run: |
+        echo "=== Build Pipeline Summary ==="
+        echo "1. Build: ✓ Completed"
+        echo "2. Tests: ✓ Completed"
+        echo "3. Artifacts: ✓ Generated"
+        echo "Artifacts available in dist/:"
+        ls -l dist/
+

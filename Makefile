@@ -1,36 +1,29 @@
 PYTHON := python3
 PIP := python3 -m pip
 
-.PHONY: all clean install test build lint format
+.PHONY: all clean build test artifact
 
-# Default target
-all: clean lint test build
-
-# Install dependencies and the package in development mode
-install:
+# Main targets that match CI requirements
+build:
+	@echo "=== Building Utility ==="
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
 	$(PIP) install -e .
-	$(PIP) install pylint black pytest-cov
 
-# Run linting
-lint:
-	pylint src/dictionary_cli/*.py || true
-	black --check src/dictionary_cli
-
-# Format code
-format:
-	black src/dictionary_cli
-
-# Run tests with coverage
 test:
-	pytest tests/ --cov=src/dictionary_cli --cov-report=term-missing
+	@echo "=== Running Test Suite ==="
+	pytest tests/ -v --cov=src/dictionary_cli --cov-report=term-missing
 
-# Build the package
-build: clean
+artifact:
+	@echo "=== Producing Runtime Artifact ==="
 	$(PYTHON) setup.py sdist bdist_wheel
+	@echo "Artifacts created in dist/:"
+	@ls -l dist/
 
-# Clean build artifacts
+# Combined target
+all: clean build test artifact
+
+# Utility targets
 clean:
 	rm -rf build/
 	rm -rf dist/
@@ -40,6 +33,7 @@ clean:
 	rm -rf __pycache__
 	find . -type d -name __pycache__ -exec rm -rf {} +
 
-# Install production dependencies only
-prod-install:
-	$(PIP) install --no-cache-dir .
+# Install for development
+install: build
+	$(PIP) install -e .
+
